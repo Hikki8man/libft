@@ -17,15 +17,15 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-#define BUFFER_SIZE 2
+# define BUFFER_SIZE 2
 
-typedef struct		s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
-}					t_list;
+}				t_list;
 
-int                 get_next_line(int fd, char **line);
+int					get_next_line(int fd, char **line);
 char				*ft_ullitoa_base(unsigned long long n, char *base);
 char				*ft_itoa_base(int n, char *base);
 char				*ft_u_itoa_base(unsigned int n, char *base);
@@ -64,11 +64,12 @@ void				ft_putnbr(int n);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 char				**ft_split(const char *s, char c);
+int					ft_free_tab(char **t, int i);
 char				*ft_strjoin(const char *s1, const char *s2);
 char				*ft_strtrim(const char *s1, const char *set);
 char				*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 char				*ft_strnstr(const char *s1, const char *to_find,
-					size_t len);
+						size_t len);
 
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **alst, t_list *new);
@@ -79,6 +80,6 @@ void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
-void (*del)(void*));
+						void (*del)(void*));
 
 #endif

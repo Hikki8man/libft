@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-int		ft_llength(unsigned int n)
+int	ft_llength(unsigned int n)
 {
-	int				len;
+	int	len;
 
 	len = 0;
 	if (n == 0)
@@ -33,7 +33,8 @@ char	*ft_u_itoa(unsigned int n)
 	int				len;
 
 	len = ft_llength(n);
-	if (!(str = (char *)ft_calloc(len + 1, sizeof(char))))
+	str = (char *)ft_calloc(len + 1, sizeof(char));
+	if (!str)
 		return (NULL);
 	if (n == 0)
 	{

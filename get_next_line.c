@@ -6,15 +6,15 @@
 /*   By: jchevet <jchevet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 13:23:02 by jchevet           #+#    #+#             */
-/*   Updated: 2021/03/03 14:59:06 by jchevet          ###   ########lyon.fr   */
+/*   Updated: 2020/12/05 12:59:17 by jchevet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_str_treatment(char **str, int fd, char **line, char *tmp)
+static int	ft_str_treatment(char **str, int fd, char **line, char *tmp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[fd][i] != '\n' && str[fd][i] != '\0')
@@ -36,42 +36,44 @@ int		ft_str_treatment(char **str, int fd, char **line, char *tmp)
 	}
 }
 
-int		check_errors(int fd, char **line, char **str)
+static int	check_errors(int fd, char **line, char **str)
 {
 	if (read(fd, str[fd], 0) != 0 || line == NULL || BUFFER_SIZE == 0)
-	{
-		*line = NULL;
 		return (0);
-	}
 	return (1);
 }
 
-int		get_next_line(int fd, char **line)
+static void	ft_strjoiner(char **str, t_var *var)
 {
-	char		buffer[BUFFER_SIZE + 1];
+	var->tmp = *str;
+	*str = ft_strjoin(*str, var->buffer);
+	free(var->tmp);
+}
+
+int	get_next_line(int fd, char **line)
+{
 	static char	*str[10240];
-	int			bytes_read;
-	char		*tmp;
+	t_var		var;
 
 	if (!check_errors(fd, line, str))
 		return (-1);
-	while ((bytes_read = read(fd, buffer, BUFFER_SIZE)))
+	while (1)
 	{
-		buffer[bytes_read] = '\0';
+		var.bytes_read = read(fd, var.buffer, BUFFER_SIZE);
+		if (var.bytes_read == 0)
+			break ;
+		var.buffer[var.bytes_read] = '\0';
 		if (!str[fd])
-			str[fd] = ft_strdup(buffer);
+			str[fd] = ft_strdup(var.buffer);
 		else
-		{
-			tmp = str[fd];
-			str[fd] = ft_strjoin(str[fd], buffer);
-			free(tmp);
-		}
-		if (str[fd] == NULL || ft_strchr(str[fd], '\n'))
+			ft_strjoiner(&str[fd], &var);
+		if (str[fd] == NULL)
+			return (-1);
+		if (ft_strchr(str[fd], '\n'))
 			break ;
 	}
 	if (str[fd] != NULL)
-		return (ft_str_treatment(str, fd, line, tmp));
+		return (ft_str_treatment(str, fd, line, var.tmp));
 	*line = ft_strdup("");
 	return (0);
 }
-

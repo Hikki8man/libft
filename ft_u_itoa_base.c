@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-int		ft_ulength(unsigned int n, int base_len)
+int	ft_ulength(unsigned int n, int base_len)
 {
-	int				len;
+	int	len;
 
 	len = 0;
 	if (n == 0)
@@ -35,7 +35,8 @@ char	*ft_u_itoa_base(unsigned int n, char *base)
 
 	base_len = ft_strlen(base);
 	size = ft_ulength(n, base_len);
-	if (!(to_ret = (char *)malloc(sizeof(char) * (size + 1))))
+	to_ret = (char *)malloc(sizeof(char) * (size + 1));
+	if (!to_ret)
 		return (NULL);
 	to_ret[size] = '\0';
 	while (--size >= 0)
