@@ -25,11 +25,12 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
-typedef struct s_var {
-    char        buffer[BUFFER_SIZE + 1];
-    int            bytes_read;
-    char        *tmp;
-}                t_var;
+typedef struct s_var
+{
+	char	buffer[BUFFER_SIZE + 1];
+	int		bytes_read;
+	char	*tmp;
+}				t_var;
 
 int					get_next_line(int fd, char **line);
 char				*ft_ullitoa_base(unsigned long long n, char *base);
