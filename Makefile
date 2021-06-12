@@ -19,7 +19,10 @@ SRC =	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
         ft_lstnew.c ft_lstadd_front.c ft_lstlast.c ft_lstsize.c ft_lstadd_back.c\
         ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_putstr.c\
         ft_putchar.c ft_putnbr.c ft_u_itoa.c ft_u_itoa_base.c ft_itoa_base.c ft_ullitoa_base.c get_next_line.c\
-        ft_free_tab.c
+        ft_free_tab.c ft_printf/ft_flags.c ft_printf/ft_get_prec_width.c ft_printf/ft_print_c_str.c \
+        ft_printf/ft_print_int.c ft_printf/ft_print_p_u_x.c \
+        ft_printf/ft_print_percent.c ft_printf/ft_printf.c \
+        ft_printf/ft_put_field_and_prec.c
 
 OBJ = ${SRC:.c=.o}
 
@@ -31,7 +34,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 NAME = libft.a
 
-%.o: %.c libft.h
+%.o: %.c include/libft.h include/ft_printf.h
 		${CC} ${CFLAGS} -c $< -o $@
 
 $(NAME): ${OBJ}
