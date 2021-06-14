@@ -70,6 +70,7 @@ void				ft_putchar(char c);
 void				ft_putstr(char *str);
 void				ft_putnbr(int n);
 void				ft_putstr_fd(char *s, int fd);
+void				ft_putstr_nl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 char				**ft_split(const char *s, char c);
 int					ft_free_tab(char **t, int i);
