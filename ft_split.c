@@ -12,6 +12,12 @@
 
 #include "include/libft.h"
 
+typedef struct s_doubleint
+{
+	int	len;
+	int	size;
+}t_intx2;
+
 int	ft_issep(char s, char c)
 {
 	return (s == c);
@@ -58,27 +64,28 @@ static int	ft_calloc_check(char **tomalloc, int count, int size)
 char	**ft_split(const char *s, char c)
 {
 	char	**t;
-	int		size;
 	int		i;
-	int		len;
+	t_intx2	tinfo;
 
 	if (!s)
 		return (NULL);
-	size = ft_strcount((char *)s, c);
-	t = (char **)ft_calloc(size + 1, sizeof(char *));
+	tinfo.size = ft_strcount((char *)s, c);
+	t = (char **)ft_calloc(tinfo.size + 1, sizeof(char *));
 	if (!t)
 		return (NULL);
 	i = -1;
-	while (++i < size)
+	while (++i < tinfo.size)
 	{
 		while (ft_issep(*s, c))
 			s++;
-		len = ft_wordlen((char *)s, c);
-		if (!ft_calloc_check(&t[i], len + 1, sizeof(char)))
-			if (ft_free_tab(t, i))
-				return (NULL);
-		ft_strlcpy(t[i], s, len + 1);
-		s += len;
+		tinfo.len = ft_wordlen((char *)s, c);
+		if (ft_calloc_check(&t[i], tinfo.len + 1, sizeof(char)) == -1)
+		{
+			ft_free_tab(t, i);
+			return (NULL);
+		}
+		ft_strlcpy(t[i], s, tinfo.len + 1);
+		s += tinfo.len;
 	}
 	return (t);
 }
